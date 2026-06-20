@@ -42,28 +42,79 @@
                 </div>
             </div>
 
-            <!-- Statistic Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-blue-500">
-                    <dt class="text-sm font-medium text-gray-500 truncate">Total Pengguna Aktif</dt>
-                    <dd class="mt-1 text-3xl font-semibold text-gray-900">{{ number_format($metrics['total_users']) }}</dd>
-                    <p class="text-xs text-gray-500 mt-2">Akun terdaftar dalam sistem</p>
-                </div>
-                
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-indigo-500">
-                    <dt class="text-sm font-medium text-gray-500 truncate">Total Role Terkonfigurasi</dt>
-                    <dd class="mt-1 text-3xl font-semibold text-gray-900">{{ number_format($metrics['total_roles']) }}</dd>
-                    <p class="text-xs text-gray-500 mt-2">Struktur RBAC</p>
+            <!-- Quick Actions -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="font-bold text-gray-800 mb-4">Aksi Cepat</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{{ route('admin.users.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            + Tambah User
+                        </a>
+                        <a href="{{ route('admin.users.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            Daftar User
+                        </a>
+                        <a href="{{ route('admin.roles.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            Role Matrix
+                        </a>
+                        <a href="{{ route('admin.permissions.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            Permission Matrix
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Empty State Lists -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 border-b border-gray-200">
-                    <h3 class="font-bold text-gray-800">Log Aktivitas Sistem</h3>
+            <!-- Statistic Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-blue-500">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Total Pengguna</dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">{{ number_format($metrics['total_users']) }}</dd>
+                    <p class="text-xs text-gray-500 mt-2">Terdaftar di sistem</p>
                 </div>
-                <div class="p-6 text-center text-gray-500">
-                    Sistem beroperasi dengan normal. Fitur audit log akan tersedia pada update mendatang.
+
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-green-500">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Pengguna Aktif</dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">{{ number_format($metrics['active_users']) }}</dd>
+                    <p class="text-xs text-gray-500 mt-2">Status akun aktif</p>
+                </div>
+                
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-indigo-500">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Total Role</dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">{{ number_format($metrics['total_roles']) }}</dd>
+                    <p class="text-xs text-gray-500 mt-2">Struktur RBAC</p>
+                </div>
+
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 border-l-4 border-purple-500">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Total Permission</dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">{{ number_format($metrics['total_permissions']) }}</dd>
+                    <p class="text-xs text-gray-500 mt-2">Izin sistem terdaftar</p>
+                </div>
+            </div>
+
+            <!-- Activity / Inactive Users -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="font-bold text-gray-800">Aktivitas Sistem Terbaru</h3>
+                    </div>
+                    <div class="p-6 text-center text-gray-500">
+                        [Placeholder] Log aktivitas sistem akan direkam dan ditampilkan di sini pada pembaruan mendatang.
+                    </div>
+                </div>
+
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="font-bold text-gray-800 flex justify-between">
+                            <span>Status Pengguna Nonaktif</span>
+                            <span class="text-red-500">{{ $metrics['inactive_users'] }}</span>
+                        </h3>
+                    </div>
+                    <div class="p-6 text-sm text-gray-600">
+                        @if($metrics['inactive_users'] > 0)
+                            <p>Terdapat <strong>{{ $metrics['inactive_users'] }}</strong> akun pengguna dengan status nonaktif di dalam sistem. <a href="{{ route('admin.users.index') }}" class="text-indigo-600 hover:underline">Kelola Pengguna</a></p>
+                        @else
+                            <p class="text-gray-500 text-center">Semua akun pengguna berstatus aktif saat ini.</p>
+                        @endif
+                    </div>
                 </div>
             </div>
             

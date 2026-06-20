@@ -86,6 +86,9 @@ class DashboardController extends Controller
         if ($roleName === RoleEnum::SUPER_ADMIN->value) {
             $metrics['total_users'] = \App\Models\User::count();
             $metrics['total_roles'] = \App\Models\Role::count();
+            $metrics['total_permissions'] = \App\Models\Permission::count();
+            $metrics['active_users'] = \App\Models\User::where('status', 'ACTIVE')->count();
+            $metrics['inactive_users'] = \App\Models\User::where('status', '!=', 'ACTIVE')->orWhereNull('status')->count();
         }
 
         // Recent Lists

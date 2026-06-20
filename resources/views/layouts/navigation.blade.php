@@ -17,50 +17,52 @@
                     </x-nav-link>
                     
                     @can('manage_system')
-                        <x-nav-link href="#">Dashboard Sistem</x-nav-link>
-                        <x-nav-link href="#">User Management</x-nav-link>
-                        <x-nav-link href="#">Role Management</x-nav-link>
-                        <x-nav-link href="#">Permission Management</x-nav-link>
-                        <x-nav-link href="#">System Settings</x-nav-link>
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">User Management</x-nav-link>
+                        <x-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">Role Management</x-nav-link>
+                        <x-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">Permission Matrix</x-nav-link>
+                        <x-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">System Settings</x-nav-link>
+                        <x-nav-link :href="route('admin.audit-log.index')" :active="request()->routeIs('admin.audit-log.*')">Audit Log</x-nav-link>
                     @endcan
 
-                    @can('view_residents')
-                        <x-nav-link :href="route('warga.index')" :active="request()->routeIs('warga.*')">
-                            {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Warga RT' : 'Data Warga' }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('kk.index')" :active="request()->routeIs('kk.*')">
-                            {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'KK RT' : 'Data KK' }}
-                        </x-nav-link>
-                    @endcan
+                    @if(auth()->user()->role->role_name !== 'SUPER_ADMIN')
+                        @can('view_residents')
+                            <x-nav-link :href="route('warga.index')" :active="request()->routeIs('warga.*')">
+                                {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Warga RT' : 'Data Warga' }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('kk.index')" :active="request()->routeIs('kk.*')">
+                                {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'KK RT' : 'Data KK' }}
+                            </x-nav-link>
+                        @endcan
 
-                    @can('view_letters')
-                        <x-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
-                            {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
-                        </x-nav-link>
-                    @endcan
+                        @can('view_letters')
+                            <x-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
+                                {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
+                            </x-nav-link>
+                        @endcan
 
-                    @can('view_complaints')
-                        <x-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
-                            {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
-                        </x-nav-link>
-                    @endcan
+                        @can('view_complaints')
+                            <x-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
+                                {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
+                            </x-nav-link>
+                        @endcan
 
-                    @can('manage_information')
-                        <x-nav-link href="#">Pengumuman</x-nav-link>
-                        <x-nav-link href="#">Agenda</x-nav-link>
-                    @endcan
+                        @can('manage_information')
+                            <x-nav-link :href="route('placeholder')">Pengumuman</x-nav-link>
+                            <x-nav-link :href="route('placeholder')">Agenda</x-nav-link>
+                        @endcan
 
-                    @can('approve_rw_letters')
-                        <x-nav-link href="#">Review Publikasi</x-nav-link>
-                    @endcan
+                        @can('approve_rw_letters')
+                            <x-nav-link :href="route('placeholder')">Review Publikasi</x-nav-link>
+                        @endcan
 
-                    @can('view_finances')
-                        @if(auth()->user()->role->role_name === 'BENDAHARA_RW')
-                        <x-nav-link href="#">Keuangan</x-nav-link>
-                        <x-nav-link href="#">Iuran</x-nav-link>
-                        <x-nav-link href="#">Laporan Keuangan</x-nav-link>
-                        @endif
-                    @endcan
+                        @can('view_finances')
+                            @if(auth()->user()->role->role_name === 'BENDAHARA_RW')
+                            <x-nav-link :href="route('placeholder')">Keuangan</x-nav-link>
+                            <x-nav-link :href="route('placeholder')">Iuran</x-nav-link>
+                            <x-nav-link :href="route('placeholder')">Laporan Keuangan</x-nav-link>
+                            @endif
+                        @endcan
+                    @endif
                 </div>
             </div>
 
@@ -118,50 +120,52 @@
             </x-responsive-nav-link>
 
             @can('manage_system')
-                <x-responsive-nav-link href="#">Dashboard Sistem</x-responsive-nav-link>
-                <x-responsive-nav-link href="#">User Management</x-responsive-nav-link>
-                <x-responsive-nav-link href="#">Role Management</x-responsive-nav-link>
-                <x-responsive-nav-link href="#">Permission Management</x-responsive-nav-link>
-                <x-responsive-nav-link href="#">System Settings</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">User Management</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">Role Management</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">Permission Matrix</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.settings.*')">System Settings</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.audit-log.index')" :active="request()->routeIs('admin.audit-log.*')">Audit Log</x-responsive-nav-link>
             @endcan
 
-            @can('view_residents')
-                <x-responsive-nav-link :href="route('warga.index')" :active="request()->routeIs('warga.*')">
-                    {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Warga RT' : 'Data Warga' }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('kk.index')" :active="request()->routeIs('kk.*')">
-                    {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'KK RT' : 'Data KK' }}
-                </x-responsive-nav-link>
-            @endcan
+            @if(auth()->user()->role->role_name !== 'SUPER_ADMIN')
+                @can('view_residents')
+                    <x-responsive-nav-link :href="route('warga.index')" :active="request()->routeIs('warga.*')">
+                        {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Warga RT' : 'Data Warga' }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('kk.index')" :active="request()->routeIs('kk.*')">
+                        {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'KK RT' : 'Data KK' }}
+                    </x-responsive-nav-link>
+                @endcan
 
-            @can('view_letters')
-                <x-responsive-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
-                    {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
-                </x-responsive-nav-link>
-            @endcan
+                @can('view_letters')
+                    <x-responsive-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
+                        {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
+                    </x-responsive-nav-link>
+                @endcan
 
-            @can('view_complaints')
-                <x-responsive-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
-                    {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
-                </x-responsive-nav-link>
-            @endcan
+                @can('view_complaints')
+                    <x-responsive-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
+                        {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
+                    </x-responsive-nav-link>
+                @endcan
 
-            @can('manage_information')
-                <x-responsive-nav-link href="#">Pengumuman</x-responsive-nav-link>
-                <x-responsive-nav-link href="#">Agenda</x-responsive-nav-link>
-            @endcan
+                @can('manage_information')
+                    <x-responsive-nav-link :href="route('placeholder')">Pengumuman</x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('placeholder')">Agenda</x-responsive-nav-link>
+                @endcan
 
-            @can('approve_rw_letters')
-                <x-responsive-nav-link href="#">Review Publikasi</x-responsive-nav-link>
-            @endcan
+                @can('approve_rw_letters')
+                    <x-responsive-nav-link :href="route('placeholder')">Review Publikasi</x-responsive-nav-link>
+                @endcan
 
-            @can('view_finances')
-                @if(auth()->user()->role->role_name === 'BENDAHARA_RW')
-                <x-responsive-nav-link href="#">Keuangan</x-responsive-nav-link>
-                <x-responsive-nav-link href="#">Iuran</x-responsive-nav-link>
-                <x-responsive-nav-link href="#">Laporan Keuangan</x-responsive-nav-link>
-                @endif
-            @endcan
+                @can('view_finances')
+                    @if(auth()->user()->role->role_name === 'BENDAHARA_RW')
+                    <x-responsive-nav-link :href="route('placeholder')">Keuangan</x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('placeholder')">Iuran</x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('placeholder')">Laporan Keuangan</x-responsive-nav-link>
+                    @endif
+                @endcan
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

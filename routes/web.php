@@ -22,6 +22,10 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/under-construction', function() {
+    return view('placeholder');
+})->middleware(['auth', 'verified'])->name('placeholder');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -51,6 +55,26 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/complaints/attachments/{attachment}', [\App\Http\Controllers\ComplaintAttachmentController::class, 'download'])->name('complaints.attachments.download');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Admin Workspace (SUPER_ADMIN)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'verified', 'can:manage_system'])->prefix('admin')->name('admin.')->group(function () {
+    // User Management
+    Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
+    Route::post('users/{user}/toggle-status', [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
+    
+    // Role & Permission Matrix (Read Only)
+    Route::get('roles', [\App\Http\Controllers\Admin\AdminRoleController::class, 'index'])->name('roles.index');
+    Route::get('permissions', [\App\Http\Controllers\Admin\AdminPermissionController::class, 'index'])->name('permissions.index');
+    
+    // System Settings & Audit Log
+    Route::get('settings', [\App\Http\Controllers\Admin\AdminSettingController::class, 'index'])->name('settings.index');
+    Route::get('audit-log', [\App\Http\Controllers\Admin\AdminAuditLogController::class, 'index'])->name('audit-log.index');
+});
+
 
 /*
 |--------------------------------------------------------------------------
