@@ -54,6 +54,24 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/complaints/attachments/{attachment}', [\App\Http\Controllers\ComplaintAttachmentController::class, 'download'])->name('complaints.attachments.download');
+
+    // Modul Keuangan (Admin)
+    Route::prefix('finances')->name('finances.')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Finance\FinanceDashboardController::class, 'index'])->name('dashboard');
+        
+        Route::resource('iuran-types', \App\Http\Controllers\Finance\IuranTypeController::class);
+        
+        Route::resource('transactions', \App\Http\Controllers\Finance\FinancialTransactionController::class)->only(['index', 'create', 'store', 'show']);
+        Route::post('/transactions/{transaction}/reverse', [\App\Http\Controllers\Finance\FinancialTransactionController::class, 'reverse'])->name('transactions.reverse');
+        
+        Route::resource('contributions', \App\Http\Controllers\Finance\ContributionController::class)->only(['index', 'create', 'store', 'show']);
+        
+        Route::get('/verifications', [\App\Http\Controllers\Finance\PaymentVerificationController::class, 'index'])->name('verifications.index');
+        Route::post('/verifications/{id}/approve', [\App\Http\Controllers\Finance\PaymentVerificationController::class, 'approve'])->name('verifications.approve');
+        Route::post('/verifications/{id}/reject', [\App\Http\Controllers\Finance\PaymentVerificationController::class, 'reject'])->name('verifications.reject');
+        
+        Route::get('/receipts/{id}/download', [\App\Http\Controllers\Finance\FinancialReceiptController::class, 'download'])->name('receipts.download');
+    });
 });
 
 /*
@@ -105,6 +123,19 @@ Route::prefix('layanan/surat')->name('public.letters.')->group(function () {
     Route::post('/', [App\Http\Controllers\PublicLetterController::class, 'store'])->name('store');
     Route::get('/track', [App\Http\Controllers\PublicLetterController::class, 'track'])->name('track');
     Route::post('/track', [App\Http\Controllers\PublicLetterController::class, 'show'])->name('show');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Portal Warga (Modul Keuangan)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('layanan/keuangan')->name('portal.finance.')->group(function () {
+    Route::get('/transparansi', [\App\Http\Controllers\Portal\PortalFinanceController::class, 'index'])->name('index');
+    Route::get('/riwayat', [\App\Http\Controllers\Portal\PortalFinanceController::class, 'history'])->name('history');
+    Route::post('/riwayat/verifikasi', [\App\Http\Controllers\Portal\PortalFinanceController::class, 'verify'])->name('verify');
+    Route::get('/riwayat/konfirmasi', [\App\Http\Controllers\Portal\PortalFinanceController::class, 'submitForm'])->name('submit');
+    Route::post('/riwayat/logout', [\App\Http\Controllers\Portal\PortalFinanceController::class, 'logout'])->name('logout');
 });
 
 require __DIR__.'/auth.php';

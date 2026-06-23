@@ -35,15 +35,19 @@
                         @endcan
 
                         @can('view_letters')
-                            <x-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
-                                {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
-                            </x-nav-link>
+                            @if(auth()->user()->role->role_name !== 'BENDAHARA_RW')
+                                <x-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
+                                    {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
+                                </x-nav-link>
+                            @endif
                         @endcan
 
                         @can('view_complaints')
-                            <x-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
-                                {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
-                            </x-nav-link>
+                            @if(auth()->user()->role->role_name !== 'BENDAHARA_RW')
+                                <x-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
+                                    {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
+                                </x-nav-link>
+                            @endif
                         @endcan
 
                         @can('manage_information')
@@ -56,10 +60,16 @@
                         @endcan
 
                         @can('view_finances')
-                            @if(auth()->user()->role->role_name === 'BENDAHARA_RW')
-                            <x-nav-link :href="route('placeholder')">Keuangan</x-nav-link>
-                            <x-nav-link :href="route('placeholder')">Iuran</x-nav-link>
-                            <x-nav-link :href="route('placeholder')">Laporan Keuangan</x-nav-link>
+                            @if(auth()->user()->role->role_name !== 'SEKRETARIS_RW')
+                                <x-nav-link :href="route('finances.dashboard')" :active="request()->routeIs('finances.dashboard')">Dashboard Keuangan</x-nav-link>
+                                @can('manage_finances')
+                                    <x-nav-link :href="route('finances.transactions.index')" :active="request()->routeIs('finances.transactions.*')">Buku Kas</x-nav-link>
+                                    <x-nav-link :href="route('finances.contributions.index')" :active="request()->routeIs('finances.contributions.*')">Pencatatan Iuran</x-nav-link>
+                                    @if(empty(auth()->user()->position?->area_code))
+                                        <x-nav-link :href="route('finances.verifications.index')" :active="request()->routeIs('finances.verifications.*')">Verifikasi Iuran</x-nav-link>
+                                        <x-nav-link :href="route('finances.iuran-types.index')" :active="request()->routeIs('finances.iuran-types.*')">Jenis Iuran</x-nav-link>
+                                    @endif
+                                @endcan
                             @endif
                         @endcan
                     @endif
@@ -138,15 +148,19 @@
                 @endcan
 
                 @can('view_letters')
-                    <x-responsive-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
-                        {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
-                    </x-responsive-nav-link>
+                    @if(auth()->user()->role->role_name !== 'BENDAHARA_RW')
+                        <x-responsive-nav-link :href="route('letters.index')" :active="request()->routeIs('letters.*')">
+                            {{ auth()->user()->role->role_name === 'SEKRETARIS_RW' ? 'Administrasi Surat' : (auth()->user()->role->role_name === 'KETUA_RT' ? 'Surat RT' : 'Persuratan') }}
+                        </x-responsive-nav-link>
+                    @endif
                 @endcan
 
                 @can('view_complaints')
-                    <x-responsive-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
-                        {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
-                    </x-responsive-nav-link>
+                    @if(auth()->user()->role->role_name !== 'BENDAHARA_RW')
+                        <x-responsive-nav-link :href="route('complaints.index')" :active="request()->routeIs('complaints.*')">
+                            {{ auth()->user()->role->role_name === 'KETUA_RT' ? 'Laporan RT' : 'Laporan & Aspirasi' }}
+                        </x-responsive-nav-link>
+                    @endif
                 @endcan
 
                 @can('manage_information')
@@ -159,10 +173,16 @@
                 @endcan
 
                 @can('view_finances')
-                    @if(auth()->user()->role->role_name === 'BENDAHARA_RW')
-                    <x-responsive-nav-link :href="route('placeholder')">Keuangan</x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('placeholder')">Iuran</x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('placeholder')">Laporan Keuangan</x-responsive-nav-link>
+                    @if(auth()->user()->role->role_name !== 'SEKRETARIS_RW')
+                        <x-responsive-nav-link :href="route('finances.dashboard')" :active="request()->routeIs('finances.dashboard')">Dashboard Keuangan</x-responsive-nav-link>
+                        @can('manage_finances')
+                            <x-responsive-nav-link :href="route('finances.transactions.index')" :active="request()->routeIs('finances.transactions.*')">Buku Kas</x-responsive-nav-link>
+                            <x-responsive-nav-link :href="route('finances.contributions.index')" :active="request()->routeIs('finances.contributions.*')">Pencatatan Iuran</x-responsive-nav-link>
+                            @if(empty(auth()->user()->position?->area_code))
+                                <x-responsive-nav-link :href="route('finances.verifications.index')" :active="request()->routeIs('finances.verifications.*')">Verifikasi Iuran</x-responsive-nav-link>
+                                <x-responsive-nav-link :href="route('finances.iuran-types.index')" :active="request()->routeIs('finances.iuran-types.*')">Jenis Iuran</x-responsive-nav-link>
+                            @endif
+                        @endcan
                     @endif
                 @endcan
             @endif

@@ -24,10 +24,11 @@ class RecordLetterActivity
         if ($event instanceof \App\Events\LetterSubmitted) {
             ActivityLog::create([
                 'user_id' => auth()->id() ?? null,
-                'action' => 'SUBMIT_LETTER',
+                'activity_type' => 'SUBMIT_LETTER',
+                'entity_type' => get_class($event->letter),
+                'entity_id' => $event->letter->pengajuan_id,
                 'description' => "Pengajuan surat baru dengan NIK {$event->letter->nik}",
                 'ip_address' => request()->ip(),
-                'user_agent' => request()->userAgent(),
             ]);
         }
         
@@ -36,10 +37,11 @@ class RecordLetterActivity
             if (in_array($status, ['COMPLETED', 'REJECTED'])) {
                 ActivityLog::create([
                     'user_id' => auth()->id() ?? null,
-                    'action' => "{$status}_LETTER",
+                    'activity_type' => "{$status}_LETTER",
+                    'entity_type' => get_class($event->letter),
+                    'entity_id' => $event->letter->pengajuan_id,
                     'description' => "Pengajuan surat ID {$event->letter->pengajuan_id} diubah menjadi {$status}",
                     'ip_address' => request()->ip(),
-                    'user_agent' => request()->userAgent(),
                 ]);
             }
         }

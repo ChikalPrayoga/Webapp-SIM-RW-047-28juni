@@ -25,8 +25,7 @@ class AnggotaKeluargaPolicy
 
     public function update(User $user, AnggotaKeluarga $anggotaKeluarga): bool
     {
-        // Allowed if user has direct permission (e.g. KETUA_RT) or triggers a request
-        return true; 
+        return $user->hasPermissionTo(PermissionEnum::EDIT_RESIDENTS);
     }
 
     public function delete(User $user, AnggotaKeluarga $anggotaKeluarga): bool

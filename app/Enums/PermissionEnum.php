@@ -13,13 +13,10 @@ enum PermissionEnum: string
     
     // Complaint Management
     case VIEW_COMPLAINTS = 'view_complaints';
-    case SUBMIT_COMPLAINTS = 'submit_complaints';
     case UPDATE_COMPLAINTS = 'update_complaints';
-    case RESOLVE_COMPLAINTS = 'resolve_complaints';
     
     // Letter Management
     case VIEW_LETTERS = 'view_letters';
-    case SUBMIT_LETTERS = 'submit_letters';
     case APPROVE_RT_LETTERS = 'approve_rt_letters';
     case APPROVE_RW_LETTERS = 'approve_rw_letters';
     case COMPLETE_LETTERS = 'complete_letters';
@@ -33,5 +30,4 @@ enum PermissionEnum: string
     
     // System
     case MANAGE_SYSTEM = 'manage_system';
-    case VIEW_AUDIT_LOGS = 'view_audit_logs';
 }

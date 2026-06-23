@@ -21,6 +21,9 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\LogLaporanAspirasi::class => \App\Policies\LogLaporanAspirasiPolicy::class,
         \App\Models\ComplaintAssignment::class => \App\Policies\ComplaintAssignmentPolicy::class,
         \App\Models\PengajuanSurat::class => \App\Policies\PengajuanSuratPolicy::class,
+        \App\Models\IuranType::class => \App\Policies\IuranTypePolicy::class,
+        \App\Models\FinancialTransaction::class => \App\Policies\FinancialTransactionPolicy::class,
+        \App\Models\CatatanIuranWarga::class => \App\Policies\CatatanIuranWargaPolicy::class,
     ];
 
     /**

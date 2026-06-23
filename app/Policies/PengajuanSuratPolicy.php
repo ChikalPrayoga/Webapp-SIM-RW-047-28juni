@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\PengajuanSurat;
 use App\Models\User;
 use App\Enums\PermissionEnum;
-use App\Enums\RoleEnum;
 use App\Enums\LetterStatusEnum;
 
 class PengajuanSuratPolicy
@@ -21,17 +20,13 @@ class PengajuanSuratPolicy
             return false;
         }
 
-        // Super Admin, RW, and Sekretaris can view any letter
-        if (
-            $user->role->role_name === RoleEnum::SUPER_ADMIN->value ||
-            $user->role->role_name === RoleEnum::KETUA_RW->value ||
-            $user->role->role_name === RoleEnum::SEKRETARIS_RW->value
-        ) {
+        // Users with manage_information (like KETUA_RW, SEKRETARIS_RW) can view any letter
+        if ($user->hasPermissionTo(PermissionEnum::MANAGE_INFORMATION)) {
             return true;
         }
 
-        // RT can only view letters from their own RT
-        if ($user->role->role_name === RoleEnum::KETUA_RT->value) {
+        // RT-level approvers can only view letters from their own RT
+        if ($user->hasPermissionTo(PermissionEnum::APPROVE_RT_LETTERS)) {
             $userArea = $user->position ? $user->position->area_code : null;
             $letterArea = $pengajuanSurat->pemohon && $pengajuanSurat->pemohon->kartuKeluarga
                 ? $pengajuanSurat->pemohon->kartuKeluarga->rt_code
@@ -99,9 +94,9 @@ class PengajuanSuratPolicy
             return false;
         }
 
-        // If it's RT_REVIEW, the user must be the RT
+        // If it's RT_REVIEW, the user must be the RT (checked by having approve_rt_letters)
         if ($pengajuanSurat->current_status === LetterStatusEnum::RT_REVIEW) {
-            if ($user->role->role_name !== RoleEnum::KETUA_RT->value) {
+            if (!$user->hasPermissionTo(PermissionEnum::APPROVE_RT_LETTERS)) {
                 return false;
             }
             $userArea = $user->position ? $user->position->area_code : null;
@@ -111,9 +106,9 @@ class PengajuanSuratPolicy
             return $userArea !== null && $userArea === $letterArea;
         }
 
-        // If it's RW_REVIEW, the user must be the RW
+        // If it's RW_REVIEW, the user must be the RW (checked by having approve_rw_letters)
         if ($pengajuanSurat->current_status === LetterStatusEnum::RW_REVIEW) {
-            return $user->role->role_name === RoleEnum::KETUA_RW->value;
+            return $user->hasPermissionTo(PermissionEnum::APPROVE_RW_LETTERS);
         }
 
         return false;
@@ -134,20 +129,20 @@ class PengajuanSuratPolicy
 
         // If it's SUBMITTED or RT_REVIEW, RT or RW can reject, but RT must own it
         if (in_array($pengajuanSurat->current_status, [LetterStatusEnum::SUBMITTED, LetterStatusEnum::RT_REVIEW])) {
-            if ($user->role->role_name === RoleEnum::KETUA_RT->value) {
+            if ($user->hasPermissionTo(PermissionEnum::APPROVE_RT_LETTERS)) {
                 $userArea = $user->position ? $user->position->area_code : null;
                 $letterArea = $pengajuanSurat->pemohon && $pengajuanSurat->pemohon->kartuKeluarga
                     ? $pengajuanSurat->pemohon->kartuKeluarga->rt_code
                     : null;
                 return $userArea !== null && $userArea === $letterArea;
             }
-            // RW can theoretically reject early, though UI usually hides it
-            return $user->role->role_name === RoleEnum::KETUA_RW->value;
+            // RW can reject early
+            return $user->hasPermissionTo(PermissionEnum::APPROVE_RW_LETTERS);
         }
 
         // If it's RW_REVIEW, only RW can reject
         if ($pengajuanSurat->current_status === LetterStatusEnum::RW_REVIEW) {
-            return $user->role->role_name === RoleEnum::KETUA_RW->value;
+            return $user->hasPermissionTo(PermissionEnum::APPROVE_RW_LETTERS);
         }
 
         return false;

@@ -14,15 +14,15 @@ class PermissionSeeder extends Seeder
             // Resident Management
             'view_residents', 'create_residents', 'edit_residents', 'delete_residents', 'approve_resident_changes',
             // Complaint Management
-            'view_complaints', 'submit_complaints', 'update_complaints', 'resolve_complaints',
+            'view_complaints', 'update_complaints',
             // Letter Management
-            'view_letters', 'submit_letters', 'approve_rt_letters', 'approve_rw_letters', 'complete_letters',
+            'view_letters', 'approve_rt_letters', 'approve_rw_letters', 'complete_letters',
             // Financial Management
             'view_finances', 'manage_finances',
             // Information Management
             'manage_information',
             // System
-            'manage_system', 'view_audit_logs',
+            'manage_system',
         ];
 
         foreach ($permissions as $perm) {
