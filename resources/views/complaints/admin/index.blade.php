@@ -81,7 +81,7 @@
                                             {{ $complaint->submitted_at->format('d M Y, H:i') }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('complaints.show', $complaint->aspirasi_id) }}" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 px-3 py-1 rounded">Detail</a>
+                                            <a href="{{ route('complaints.show', $complaint->aspirasi_id) }}" class="btn-detail-action">Detail</a>
                                         </td>
                                     </tr>
                                 @empty

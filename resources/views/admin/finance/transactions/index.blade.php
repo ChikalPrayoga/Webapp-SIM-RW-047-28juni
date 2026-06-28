@@ -114,11 +114,11 @@
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-3">
-                                            <a href="{{ route('finances.transactions.show', $tx->transaction_id) }}" class="text-indigo-600 hover:text-indigo-900">Detail</a>
+                                            <a href="{{ route('finances.transactions.show', $tx->transaction_id) }}" class="btn-detail-action">Detail</a>
 
                                             @can('reverse', $tx)
                                                 <!-- Inline Reversal Action using a prompt/modal reason -->
-                                                <button onclick="triggerReversal({{ $tx->transaction_id }}, '{{ $tx->transaction_number }}')" class="text-orange-600 hover:text-orange-900">Koreksi (Reversal)</button>
+                                                <button onclick="triggerReversal({{ $tx->transaction_id }}, '{{ $tx->transaction_number }}')" class="btn-edit-action">Koreksi (Reversal)</button>
                                             @endcan
                                         </td>
                                     </tr>

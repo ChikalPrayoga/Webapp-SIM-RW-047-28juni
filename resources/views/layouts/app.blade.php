@@ -9,20 +9,22 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased text-brand-dark bg-slate-50/70">
+        <div class="min-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+                <header class="bg-white border-b border-slate-100 shadow-[0_4px_20px_-12px_rgba(0,77,64,0.08)] relative z-20">
+                    <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
+                        <div class="border-l-4 border-brand-primary pl-3">
+                            {{ $header }}
+                        </div>
                     </div>
                 </header>
             @endif
@@ -34,3 +36,5 @@
         </div>
     </body>
 </html>
+
+

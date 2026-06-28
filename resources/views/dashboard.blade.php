@@ -99,7 +99,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('letters.show', $surat->pengajuan_id) }}" class="text-indigo-600 hover:text-indigo-900">Detail</a>
+                                        <a href="{{ route('letters.show', $surat->pengajuan_id) }}" class="btn-detail-action">Detail</a>
                                     </td>
                                 </tr>
                                 @empty
@@ -137,7 +137,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('complaints.show', $laporan->aspirasi_id) }}" class="text-indigo-600 hover:text-indigo-900">Detail</a>
+                                        <a href="{{ route('complaints.show', $laporan->aspirasi_id) }}" class="btn-detail-action">Detail</a>
                                     </td>
                                 </tr>
                                 @empty

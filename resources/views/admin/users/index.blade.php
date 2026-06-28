@@ -56,11 +56,11 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn-edit-action">Edit</a>
                                     
                                     <form action="{{ route('admin.users.toggle-status', $user) }}" method="POST" class="inline">
                                         @csrf
-                                        <button type="submit" class="{{ $user->status === 'ACTIVE' ? 'text-yellow-600 hover:text-yellow-900' : 'text-green-600 hover:text-green-900' }}" onclick="return confirm('Yakin mengubah status pengguna ini?')">
+                                        <button type="submit" class="{{ $user->status === 'ACTIVE' ? 'btn-edit-action' : 'btn-detail-action' }}" onclick="return confirm('Yakin mengubah status pengguna ini?')">
                                             {{ $user->status === 'ACTIVE' ? 'Nonaktifkan' : 'Aktifkan' }}
                                         </button>
                                     </form>
@@ -68,7 +68,7 @@
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Yakin ingin menghapus pengguna ini secara permanen?')">Hapus</button>
+                                        <button type="submit" class="btn-delete-action" onclick="return confirm('Yakin ingin menghapus pengguna ini secara permanen?')">Hapus</button>
                                     </form>
                                 </td>
                             </tr>

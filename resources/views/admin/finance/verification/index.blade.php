@@ -53,7 +53,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                                             @if($item->payment_proof_path)
-                                                <a href="{{ route('finances.receipts.download', $item->iuran_id) }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 underline font-medium">Lihat Bukti</a>
+                                                <a href="{{ route('finances.receipts.download', $item->iuran_id) }}" target="_blank" class="btn-detail-action">Lihat Bukti</a>
                                             @else
                                                 <span class="text-gray-400">Tanpa Bukti (Tunai/Luring)</span>
                                             @endif
@@ -62,11 +62,11 @@
                                             <!-- Approve Form -->
                                             <form action="{{ route('finances.verifications.approve', $item->iuran_id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin data fisik setoran iuran ini sudah cocok dengan sistem?')">
                                                 @csrf
-                                                <button type="submit" class="text-green-600 hover:text-green-900 font-bold">Approve</button>
+                                                <button type="submit" class="btn-detail-action">Approve</button>
                                             </form>
 
                                             <!-- Reject Button -->
-                                            <button onclick="triggerRejection({{ $item->iuran_id }}, '{{ $item->no_kk }}')" class="text-red-600 hover:text-red-900 font-bold">Reject</button>
+                                            <button onclick="triggerRejection({{ $item->iuran_id }}, '{{ $item->no_kk }}')" class="btn-delete-action">Reject</button>
                                         </td>
                                     </tr>
                                 @empty

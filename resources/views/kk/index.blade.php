@@ -27,25 +27,25 @@
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-900">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No KK</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RT</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alamat Lengkap</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-brand-dark uppercase tracking-wider">No KK</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-brand-dark uppercase tracking-wider">RT</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-brand-dark uppercase tracking-wider">Alamat Lengkap</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-brand-dark uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                                 @forelse ($kartuKeluargas as $kk)
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ $kk->no_kk }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $kk->rt_code }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ Str::limit($kk->alamat_lengkap, 50) }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-dark dark:text-white">{{ $kk->no_kk }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-dark dark:text-white">{{ $kk->rt_code }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-dark dark:text-white">{{ Str::limit($kk->alamat_lengkap, 50) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('kk.show', $kk->no_kk) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Detail</a>
+                                            <a href="{{ route('kk.show', $kk->no_kk) }}" class="btn-detail-action">Detail</a>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">Tidak ada data.</td>
+                                        <td colspan="4" class="px-6 py-4 text-center text-sm text-brand-dark dark:text-white">Tidak ada data.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

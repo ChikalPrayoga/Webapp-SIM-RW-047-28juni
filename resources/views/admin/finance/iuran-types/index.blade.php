@@ -65,18 +65,18 @@
                                                 {{ $type->is_active ? 'Aktif' : 'Nonaktif' }}
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-3">
-                                            <a href="{{ route('finances.iuran-types.show', $type->id) }}" class="text-indigo-600 hover:text-indigo-900">Detail</a>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex items-center gap-3">
+                                            <a href="{{ route('finances.iuran-types.show', $type->id) }}" class="btn-detail-action">Detail</a>
                                             
                                             @can('update', $type)
-                                                <a href="{{ route('finances.iuran-types.edit', $type->id) }}" class="text-yellow-600 hover:text-yellow-900">Edit</a>
+                                                <a href="{{ route('finances.iuran-types.edit', $type->id) }}" class="btn-edit-action">Edit</a>
                                             @endcan
 
                                             @can('delete', $type)
                                                 <form action="{{ route('finances.iuran-types.destroy', $type->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus/menonaktifkan jenis iuran ini?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900">Hapus</button>
+                                                    <button type="submit" class="btn-delete-action">Hapus</button>
                                                 </form>
                                             @endcan
                                         </td>

@@ -7,7 +7,7 @@ use App\Repositories\ComplaintRepository;
 use App\Repositories\ComplaintHistoryRepository;
 use App\Services\ComplaintService;
 use App\Services\ComplaintAssignmentService;
-use App\Http\Requests\StoreComplaintRequest;
+
 use App\Http\Requests\UpdateComplaintStatusRequest;
 use App\Enums\ComplaintStatusEnum;
 use App\Enums\ComplaintCategoryEnum;
@@ -41,15 +41,7 @@ class ComplaintController extends Controller
         return view('complaints.admin.index', compact('complaints'));
     }
 
-    public function store(StoreComplaintRequest $request)
-    {
-        // TODO: Cleanup Candidate (Dead Code, now handled by PublicComplaintController)
-        $files = $request->file('attachments') ?? [];
-        
-        $complaint = $this->service->submitComplaint($request->validated(), $files);
 
-        return response()->json(['message' => 'Complaint submitted successfully', 'data' => $complaint], 201);
-    }
 
     public function show(LogLaporanAspirasi $complaint)
     {

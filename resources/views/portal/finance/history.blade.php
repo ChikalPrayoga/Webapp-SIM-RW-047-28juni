@@ -58,7 +58,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     @if($item->payment_proof_path)
-                                        <a href="{{ route('finances.receipts.download', $item->iuran_id) }}" target="_blank" class="text-indigo-600 hover:text-indigo-900 underline">Unduh Kuitansi</a>
+                                        <a href="{{ route('finances.receipts.download', $item->iuran_id) }}" target="_blank" class="btn-detail-action">Unduh Kuitansi</a>
                                     @else
                                         <span class="text-gray-400">Pembayaran Offline</span>
                                     @endif

@@ -139,3 +139,9 @@ Route::prefix('layanan/keuangan')->name('portal.finance.')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+use App\Services\N8nService;
+
+Route::get('/dev/ai/ping', function (N8nService $n8n) {
+    return response()->json($n8n->ping());
+});
